@@ -88,23 +88,28 @@ section + section { border-top: 1px solid var(--line); }
 
 .hero {
   display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: 48px;
-  align-items: stretch;
+  grid-template-columns: 1fr auto;
+  column-gap: 48px;
+  align-items: start;
   padding-block: 64px 48px;
 }
 
-/* Photo on the right, stretched to exactly the height of the text.
-   "contain: size" stops the photo from setting the height itself,
-   so the text decides and the photo fills it (cropped, not squashed). */
-.hero img {
+/* Text on the left; below it the field tags and buttons. */
+.hero .intro { grid-column: 1; grid-row: 1; }
+.hero .intro p:last-child { margin-bottom: 0; }
+.hero .extra { grid-column: 1; grid-row: 2; }
+
+/* Photo on the right. Its top lines up with the name; a small script in
+   index.html sets its height so the bottom lines up with the end of the
+   intro text. 300px is the fallback if the script doesn't run. */
+.hero .portrait {
   grid-column: 2;
   grid-row: 1;
-  width: 100%;
-  height: 100%;
-  contain: size;
+  display: block;
+  width: 300px;
+  height: auto;
+  aspect-ratio: 900 / 997;
   object-fit: cover;
-  object-position: center 30%;
   border-radius: 6px;
 }
 
@@ -187,9 +192,11 @@ footer {
 /* ---------- Small screens ---------- */
 
 @media (max-width: 680px) {
-  .hero { grid-template-columns: 1fr; gap: 28px; padding-block: 36px; }
-  /* On phones: square photo above the text */
-  .hero img { grid-column: 1; max-width: 200px; height: auto; contain: none; aspect-ratio: 1 / 1; }
+  /* On phones: photo above the text, then intro, then tags and buttons */
+  .hero { grid-template-columns: 1fr; padding-block: 36px; }
+  .hero .portrait { grid-column: 1; grid-row: 1; width: 200px; margin-bottom: 28px; }
+  .hero .intro { grid-row: 2; }
+  .hero .extra { grid-row: 3; }
   h1 { font-size: 2rem; }
   .page-title { padding-top: 36px; }
 }
