@@ -88,19 +88,23 @@ section + section { border-top: 1px solid var(--line); }
 
 .hero {
   display: grid;
-  grid-template-columns: 1fr 220px;
+  grid-template-columns: 1fr 280px;
   gap: 48px;
-  align-items: start;
+  align-items: stretch;
   padding-block: 64px 48px;
 }
 
+/* Photo on the right, stretched to exactly the height of the text.
+   "contain: size" stops the photo from setting the height itself,
+   so the text decides and the photo fills it (cropped, not squashed). */
 .hero img {
-  grid-column: 2;   /* photo on the right, text on the left */
+  grid-column: 2;
   grid-row: 1;
   width: 100%;
-  height: auto;
-  aspect-ratio: 1 / 1;
+  height: 100%;
+  contain: size;
   object-fit: cover;
+  object-position: center 30%;
   border-radius: 6px;
 }
 
@@ -184,7 +188,8 @@ footer {
 
 @media (max-width: 680px) {
   .hero { grid-template-columns: 1fr; gap: 28px; padding-block: 36px; }
-  .hero img { grid-column: 1; max-width: 200px; }  /* photo above text on phones */
+  /* On phones: square photo above the text */
+  .hero img { grid-column: 1; max-width: 200px; height: auto; contain: none; aspect-ratio: 1 / 1; }
   h1 { font-size: 2rem; }
   .page-title { padding-top: 36px; }
 }
