@@ -25,8 +25,16 @@
 
   <main class="wrap">
     <section class="hero">
-      <img class="portrait" src="images/ilse-eur.jpg" alt="Portrait of Ilse van der Voort" width="2798" height="3101">
-      <!-- The photo is sized to match the height of this .intro block (see script below). -->
+      <!-- Photo copies are made at exactly the size shown on screen (1x, 2x, 3x for
+           sharper screens), so the browser never has to resize them. If you change
+           the photo's size in css/style.css, these files must be re-made to match. -->
+      <picture class="portrait">
+        <source media="(max-width: 680px)"
+                srcset="images/portrait-phone-1x.jpg 1x, images/portrait-phone-2x.jpg 2x, images/portrait-phone-3x.jpg 3x">
+        <img src="images/portrait-desk-1x.jpg"
+             srcset="images/portrait-desk-1x.jpg 1x, images/portrait-desk-2x.jpg 2x, images/portrait-desk-3x.jpg 3x"
+             alt="Portrait of Ilse van der Voort" width="302" height="335">
+      </picture>
       <div class="intro">
         <h1>Ilse van der Voort</h1>
         <p class="role">PhD Candidate in Economics · Erasmus University Rotterdam &amp; Tinbergen Institute</p>
@@ -47,33 +55,6 @@
       </div>
     </section>
   </main>
-
-  <script>
-    // Make the photo exactly as tall as the intro text (name down to the end of
-    // the second paragraph), keeping its shape. A wider photo makes the text
-    // wrap differently, so repeat a few times until it settles.
-    (function () {
-      var img = document.querySelector('.hero .portrait');
-      var intro = document.querySelector('.hero .intro');
-      var ratio = 2798 / 3101;
-      var phone = window.matchMedia('(max-width: 680px)');
-
-      function fit() {
-        img.style.width = img.style.height = '';
-        if (phone.matches) return;
-        for (var i = 0; i < 8; i++) {
-          var h = intro.offsetHeight;
-          if (img.style.height === h + 'px') break;
-          img.style.height = h + 'px';
-          img.style.width = Math.round(h * ratio) + 'px';
-        }
-      }
-
-      fit();
-      window.addEventListener('resize', fit);
-      if (document.fonts) document.fonts.ready.then(fit);
-    })();
-  </script>
 
   <footer>
     <div class="wrap">© 2026 Ilse van der Voort · Erasmus School of Economics, Rotterdam</div>

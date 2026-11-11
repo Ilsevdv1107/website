@@ -99,17 +99,19 @@ section + section { border-top: 1px solid var(--line); }
 .hero .intro p:last-child { margin-bottom: 0; }
 .hero .extra { grid-column: 1; grid-row: 2; }
 
-/* Photo on the right. Its top lines up with the name; a small script in
-   index.html sets its height so the bottom lines up with the end of the
-   intro text. 300px is the fallback if the script doesn't run. */
+/* Photo on the right, top level with the name. Shown at a fixed size that
+   matches the image files exactly (see index.html), which keeps it sharp.
+   At this size its bottom lines up with the end of the second paragraph. */
 .hero .portrait {
   grid-column: 2;
   grid-row: 1;
   display: block;
-  width: 300px;
-  height: auto;
-  aspect-ratio: 2798 / 3101;
-  object-fit: cover;
+}
+
+.hero .portrait img {
+  display: block;
+  width: 302px;
+  height: 335px;
   border-radius: 6px;
 }
 
@@ -194,7 +196,8 @@ footer {
 @media (max-width: 680px) {
   /* On phones: photo above the text, then intro, then tags and buttons */
   .hero { grid-template-columns: 1fr; padding-block: 36px; }
-  .hero .portrait { grid-column: 1; grid-row: 1; width: 200px; margin-bottom: 28px; }
+  .hero .portrait { grid-column: 1; grid-row: 1; margin-bottom: 28px; }
+  .hero .portrait img { width: 200px; height: 222px; }
   .hero .intro { grid-row: 2; }
   .hero .extra { grid-row: 3; }
   h1 { font-size: 2rem; }
