@@ -88,13 +88,15 @@ section + section { border-top: 1px solid var(--line); }
 
 .hero {
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 1fr 220px;
   gap: 48px;
   align-items: start;
   padding-block: 64px 48px;
 }
 
 .hero img {
+  grid-column: 2;   /* photo on the right, text on the left */
+  grid-row: 1;
   width: 100%;
   height: auto;
   aspect-ratio: 1 / 1;
@@ -182,7 +184,7 @@ footer {
 
 @media (max-width: 680px) {
   .hero { grid-template-columns: 1fr; gap: 28px; padding-block: 36px; }
-  .hero img { max-width: 200px; }
+  .hero img { grid-column: 1; max-width: 200px; }  /* photo above text on phones */
   h1 { font-size: 2rem; }
   .page-title { padding-top: 36px; }
 }
